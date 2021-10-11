@@ -1,0 +1,92 @@
+-INSTALLING a Virtual environment in ubuntu
+	sudo apt-get install python3-pip
+	sudo pip3 install virtualenv
+to create 	virtualenv env
+to activate	source env/bin/activate		
+
+-i was trying to install psycopg2 in a python 3.5 and it didnt work because python 3.5 and python 3.4 needed extro files to work those files were: 		sudo apt install libpq-dev python3.4-dev or sudo apt install libpq-dev python3.5-dev
+
+- i had an error that address is already running in my aws instance so i used the command to see the addresses running:   		netstat -tulpn
+- to see the processes running currently on an ubuntu server: 		ps -fA | grep python 
+
+- if you have process running and you are getting address already in use. use the command to kill the process:           		kill -9 $(ps -A | grep python | awk '{print $1}')
+
+- To install postgres the link will help 		https://linuxhint.com/install_postgresql_-ubuntu/
+
+-switching to root user ubuntu:		 sudo su
+
+- to connect to postgres for the first time in ubuntu the link will help:	https://www.liquidweb.com/kb/what-is-the-default-password-for-postgresql/
+
+
+WORK WITH OSM
+command i use to upload osm:  														osm2pgsql -s -H localhost -P 5432 -U beta -W -d osm C:\Users\User\Desktop\osm\nigeria-latest.osm.pbf
+
+When i had the Scram authentication error i solved it by downloadeing a version that had an updated libq higher thatn 10 and it solved the error.
+
+WORKING WTH SCHEDULE IN PYTHON
+
+# to install schedule
+# RUN "python -m pip install schedule" in CMD
+
+import schedule
+import time
+
+def job():
+    print("I'm working...")
+
+schedule.every(10).minutes.do(job)
+schedule.every().hour.do(job)
+schedule.every().day.at("10:30").do(job)
+schedule.every().monday.do(job)
+schedule.every().wednesday.at("13:15").do(job)
+schedule.every().minute.at(":17").do(job)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+
+MIGRATIONS IN FLASK 
+#first you have to install flask-migrate
+#then you import: from flask_migrate import Migrate
+## then you initialize:		flask db init
+## then you migrate:		flask db migrate
+## then you upgrade: 		flask db upgrade
+
+
+CONNECTING TO DATABASE USING SQLALCHEMY
+#to set the database you first of set the 
+		app.cofig[]="databasetype://database_name:database_password@host/database_you_created"
+
+POSTGRES: app.cofig["SQLALCHEMY_DATABASE_URI"]="postgresql://beta:password@localhost:5432/car_db"
+
+MYSQL:	app.config["SQLALCHEMY_DATABASE_URI"]="mysql+pymysql://beta:password@localhost/car_db"
+Note: the 5432 is the port postgresql is running it is only applicable when setting postgresql
+
+
+HEROKU HOST ERROR
+#When hosting on heroku if you get the error::: No default language could be detected for this app. This error is caused because heroku can not find requirements.txt file inside your application. just check if its there or if its spelled well.
+
+FLASK SQLALCHEMY
+#if you ever come across the error::  No module named 'flask_sqlalchemy'.   this is caused becaus you probably only install sqlalchemy to your app and not flask-sqlalchemy. to solve the issue just do "pip install flask-sqlalchemy"
+
+#when ever you come across the error database not upto date:  just solve it with the code before repeating your migration
+"flask db stamp head"
+
+#If you ever come across this error  									:sqlalchemy.exc.AmbiguousForeignKeysError: Could not determine join condition between parent/child tables on relationship Parent_guardian.student - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+
+#PSYCOBG2
+if you ever come across this error:   not all arguments converted during string formatting
+mostly the error happens if you dont add a coma(,) at the end of your value
+
+#CRUD FLASK RAW POSTGRES SQL
+this link below will give you a clue:     								 https://www.codegrepper.com/code-examples/sql/Create+a+CRUD+Restful+Service+API+using+Flask+%2B+Mysql
+
+#ADDING A VALUE INTO A STRING
+To do this you will use the %s oprator.
+
+#the link i use to activate disqus in my blog:	https://portfolio.peter-baumgartner.net/2017/09/10/how-to-install-disqus-on-hugo/
+
+#link to the site that will do branding for you:	https://studio.tailorbrands.com/brands/6055908351/social
+
+#if you install python and cant access it check wether python is added into the environmental variable. uninstall python and make sure you click check box that suggest adding to system variables.
+
